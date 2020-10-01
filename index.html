@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Niti</title>
+  <style>
+  #my-button {
+    background-color: teal;
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    border-radius: 4px;
+    font-family: sans-serif;
+  }
+
+  #my-button:hover {
+    background-color: rgb(30, 109, 109);
+    cursor: pointer;
+    font-weight: bold;
+  }
+  </style>
+</head>
+<body>
+<div id="my-button">Click me</div>
+
+<script>
+  // blokirajuca operacija
+  // let button = document.getElementById("my-button");
+  //
+  // button.addEventListener("click", function()
+  // {
+  //   let data = [];
+  //   for (var i = 0; i < 50000; i++)
+  //   {
+  //     let random = Math.random().toString().split("0");
+  //     data = data.concat(random);
+  //   }
+  //   console.log(data.length);
+  //   console.log("Statement after time-intensive operation");
+  // });
+
+
+
+
+  // visenitno programiranje
+  let button = document.getElementById("my-button");
+  const worker = new Worker("time-intensive.js");
+  button.addEventListener("click", function() {
+    worker.postMessage("Start");
+    console.log("Statement after time-intensive operation");
+    worker.onmessage = function(e) {
+      console.log(e.data.length);
+    }
+  });
+
+
+
+</script>
+</body>
+</html>
